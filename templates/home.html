@@ -20,47 +20,40 @@
 <!--    <div>-->
 <!--      {% if user.active %}-->
       <center>
-        <br>
       <form id="upload-file" method="post" enctype="multipart/form-data">
-        <label for="imageUpload" class="upload-label">
-          Upload
-        </label>
-        <br>
-        <br>
-        <input type="file" name="file" id="imageUpload" accept=".xlsx" required>
+          <div class="textbox">
+              <p>Job Description</p>
+              <textarea id="job_desc" name="job_desc" cols="70" rows="20" required></textarea>
+          </div>
+          <div class="textbox">
+              <p>Resume</p>
+              <textarea id="resume" name="resume" cols="70" rows="20" required></textarea>
+          </div>
       </form>
-      </center>
+<!--      </center>-->
 <!--      {% endif %}-->
 <!--      {% if not user.active %}-->
 <!--      <div><span>Kindly donate to keep this alive</span></div>-->
 <!--      {% endif %}-->
       <div class="image-section" style="display:none;">
-        <span></span>
-          <span></span>
-          <span></span>
+        <span></span><span></span>
         <div>
-          <center>
-          <button type="button" class="upload-label" id="btn-predict">Calculate Similarity</button>
-        </center>
+          <center><button type="button" class="upload-label" id="btn-predict">Calculate Similarity</button></center>
         </div>
-<!--        {% if result %}-->
-<!--          <h4>{{ result }},</h4>-->
-<!--        {% endif %}-->
       </div>
-    </div>
-    <center>
+<!--    <center>-->
     <div class="loader" style="display:none;"></div>
-    <h1 id="result"> 
-    </h1>
+    <h1 id="result"> </h1>
+          <br>
     </center>
-    <center>
-    <div style="padding-top: 10%">
-      <span>Upload xlsx file, column name as below:</span>
-    </div>
-    <img src="../static/img/example.jpg">
-  </center>
-  </div>
-
+<!--    <center>-->
+<!--    <div style="padding-top: 10%; display:block;">-->
+<!--      <span>Upload xlsx file, column name as below:</span>-->
+<!--    </div>-->
+<!--    <img style="border-radius:10px;" src="../static/img/example.jpg">-->
+<!--        <br>-->
+<!--        <br>-->
+<!--  </center>-->
 </section>
 {% endblock %}
 
