@@ -42,9 +42,6 @@
           </a>
         </span>
         <br>
-        {% if status %}
-          <h6>{{status}}</h6>
-        {% endif %}
       </div>
     </div>
   </nav>
@@ -58,7 +55,7 @@
           <p class="title is-2">Resume Scanner</p>
           <p class="subtitle is-4">Know the % to land your resume in HR system</p>
           <br>
-          <img src="/static/img/resume.jpg">
+          <img src="/static/img/site-logo.png">
           <br>     
         </div>
         <div class="column is-auto">
@@ -67,7 +64,7 @@
               
               <div class="field">
                 <p class="control has-icons-left has-icons-right">
-                  <input id="signup-user" class="input is-success" type="text" placeholder="Username">
+                  <input id="signup-user" class="input is-success" type="text" placeholder="Username" required>
                   <span class="icon is-small is-left">
                     <i class="fa fa-user"></i>
                   </span>
@@ -78,7 +75,7 @@
               </div>
               <div class="field">
                 <p class="control has-icons-left has-icons-right">
-                  <input id="signup-mail" class="input is-success" type="text" placeholder="Email">
+                  <input id="signup-mail" class="input is-success" type="email" placeholder="Email" required>
                   <span class="icon is-small is-left">
                     <i class="fa fa-envelope"></i>
                   </span>
@@ -89,7 +86,7 @@
               </div>
               <div class="field">
                 <p class="control has-icons-left has-icons-right">
-                  <input id="signup-pass" class="input" type="password" placeholder="Password">
+                  <input id="signup-pass" class="input" type="password" placeholder="Password" required>
                   <span class="icon is-small is-left">
                     <i class="fa fa-lock"></i>
                   </span>
@@ -99,7 +96,7 @@
                 </p>
               </div>
               <br>
-              <a id="signup-button" class="form-button button is-primary is-inverted is-outlined">Sign Up NOW</a>
+              <a id="signup-button" class="form-button button is-primary is-inverted is-outlined">Sign Up Now</a>
               <br>
               <br>
               <i><a id="feedback" class="feedback"></a></i>
@@ -118,7 +115,7 @@
           <strong>Resume Scanner</strong>
           <span class="icon is-small">
             <i class="fa fa-copyright"></i>
-          </span>2021</a>
+          </span> 2021</a>
         </p>
         <p>
         </p>
