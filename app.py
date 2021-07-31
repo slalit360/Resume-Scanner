@@ -13,12 +13,12 @@ app = Flask(__name__)
 app.secret_key = os.urandom(24)  # Generic key for dev purposes only
 logger = app.logger
 
-stripe_keys = {
-  'secret_key': os.environ['STRIPE_SECRET_KEY'],
-  'publishable_key': os.environ['STRIPE_PULISHABLE_KEY']
-}
-
-stripe.api_key = stripe_keys['secret_key']
+# stripe_keys = {
+#   'secret_key': os.environ['STRIPE_SECRET_KEY'],
+#   'publishable_key': os.environ['STRIPE_PULISHABLE_KEY']
+# }
+#
+# stripe.api_key = stripe_keys['secret_key']
 
 # Heroku
 #from flask_heroku import Heroku
@@ -43,7 +43,7 @@ def login():
         return render_template('login.html', form=form)
     user = helpers.get_user()
     user.active = True #user.payment == helpers.payment_token()
-    user.key = stripe_keys['publishable_key']
+    #user.key = stripe_keys['publishable_key']
     return render_template('home.html', user=user)
 
 # -------- Signup ---------------------------------------------------------- #
@@ -113,48 +113,44 @@ def logout():
 @app.route('/predict', methods=['GET', 'POST'])
 def upload():
     if request.method == 'POST':
-        f = request.files['file']
+        # f = request.files['file']
+        # basepath = os.path.dirname(__file__)
+        # file_path = os.path.join(
+        #     basepath, 'uploads', secure_filename(f.filename))
+        # f.save(file_path)
 
-        basepath = os.path.dirname(__file__)
-        file_path = os.path.join(
-            basepath, 'uploads', secure_filename(f.filename))
-        f.save(file_path)
+        # df = pd.read_excel(file_path)
+        # logger.info(df)
+        # seg_list01 = df['job-description']
+        # seg_list02 = df['your-resume']
+        # item01_list = seg_list01
+        # item01 = ','.join(item01_list)
+        # item02_list = seg_list02
+        # item02 = ','.join(item02_list)
 
-        df = pd.read_excel(file_path)
-        logger.info(df)
-        seg_list01 = df['job-description']
-        seg_list02 = df['your-resume']
+        item01 = request.form['job_desc']
+        item02 = request.form['resume']
 
-        item01_list = seg_list01
-        item01 = ','.join(item01_list)
-
-        item02_list = seg_list02
-        item02 = ','.join(item02_list)
+        if not item01 or not item02:
+            return "Please Enter data."
 
         documents = [item01, item02]
-
         count_vectorizer = CountVectorizer()
         sparse_matrix = count_vectorizer.fit_transform(documents)
 
         doc_term_matrix = sparse_matrix.todense()
-        df = pd.DataFrame(doc_term_matrix, 
-                  columns=count_vectorizer.get_feature_names(), 
-                  index=['item01', 'item02'])
-
+        df = pd.DataFrame(doc_term_matrix, columns=count_vectorizer.get_feature_names(), index=['item01', 'item02'])
         answer = cosine_similarity(df, df)
         answer = pd.DataFrame(answer)
         answer = answer.iloc[[1],[0]].values[0]
-        answer = round(float(answer),4)*100
+        answer = round(float(answer)*100, 1)
         if answer >= 65:
-            result = "Congratulation, Your resume matched " + str(answer) + " %" + " of the job description."
+            return "Congratulation, Your resume matched " + str(answer) + " %" + " of the job description."
         else:
-            result = "Ohh No, Your resume matched " + str(answer) + " %" + " of the job description."
-        print(result)
-        logger.info(result)
-        return result #render_template('home.html', result=result, user = helpers.get_user())
+            return "Ohh No, Your resume matched " + str(answer) + " %" + " of the job description."
     return None
 
 # ======== Main ============================================================== #
 if __name__ == "__main__":
-    app.secret_key = os.environ['FLASK_SECRET_KEY'] #os.urandom(12)
-    app.run(use_reloader=True)
+    app.secret_key = os.urandom(12)
+    app.run(debug=True, use_reloader=True)

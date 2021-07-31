@@ -70,7 +70,14 @@ $("#navbar-burger-id").click(function () {
   }
 });
 
-$("#imageUpload").change(function () {
+$("#resume").change(function () {
+  $('.image-section').show();
+  $('#btn-predict').show();
+  $('#result').text('');
+  $('#result').hide();
+});
+
+$("#job_desc").change(function () {
   $('.image-section').show();
   $('#btn-predict').show();
   $('#result').text('');
