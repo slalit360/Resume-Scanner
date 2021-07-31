@@ -13,8 +13,8 @@ app = Flask(__name__)
 # app.secret_key = os.urandom(12)  # Generic key for dev purposes only
 logger = app.logger
 stripe_keys = {
-  'secret_key': 'sk_test_51JJAV7SBD3DJrHjNz9unVUrKvthIupIFPph2gMWENKFhzO6LyZNbICPPI633eBdFo6ML6k3u2fXed3CzGmpibZb200QU9aFHZ1', #os.environ['secret_key'],
-  'publishable_key': 'pk_test_51JJAV7SBD3DJrHjNZjPAWphpmdzp1Q2qfLOFQXx0n5gDdSadlyiaEA9qec27d66UIItCXqu0Xb6t46q4IAjS8OQI00aWQtK8jT'#os.environ['publishable_key']
+  'secret_key': os.environ['STRIPE_SECRET_KEY'],
+  'publishable_key': os.environ['STRIPE_PULISHABLE_KEY']
 }
 
 stripe.api_key = stripe_keys['secret_key']
@@ -155,5 +155,5 @@ def upload():
 
 # ======== Main ============================================================== #
 if __name__ == "__main__":
-    app.secret_key = os.urandom(12)
+    app.secret_key = os.environ['FLASK_SECRET_KEY'] #os.urandom(12)
     app.run(use_reloader=True)
